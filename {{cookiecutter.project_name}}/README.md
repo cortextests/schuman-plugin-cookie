@@ -23,6 +23,17 @@ The following commands come pre-configured in this repository. You can see all a
 - `lintfix` - runs eslint in fix mode to fix any linting errors that can be fixed automatically
 - `formatfix` - runs Prettier in fix mode to fix any formatting errors that can be fixed automatically
 
-### Available React components
+## Styling your plugin
 
-See available UI components via our [Storybook](https://cortexapps.github.io/plugin-core/).
+The Cortex UI allows for custom brand colors, and has a light/dark mode switcher. We expose CSS variables to your plugin
+so you may match the current theme. These styles are injected into your plugin iframe once we receive an `init` message
+via plugin-core, and are re-injected each time the theme is changed (such as dark mode switch).
+
+The CSS variables are documented within the demo app in this project. If your plugin requires additional theme
+information, please reach out to Cortex to see about having it added!
+
+### Plugin init
+
+Mentioned above, we inject styles once the `init` message is received. This is necessary due to constraints with
+iframes. To reduce a "flash of unstyled content", it is important that your plugin sends the init message as soon as possible. Avoid calling `init` within library code, and instead keep it at the top level of your scripts so it runs once
+the plugin loads in the browser.
